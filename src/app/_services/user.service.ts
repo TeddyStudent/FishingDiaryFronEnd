@@ -16,11 +16,11 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post('/api/users', user);
+        return this.http.post('localhost:3005/api/user', user);
     }
 
     update(user: User) {
-        return this.http.put('/api/users/' + user.id, user);
+        return this.http.put('/api/users/' + user.idtili, user);
     }
 
     delete(id: number) {

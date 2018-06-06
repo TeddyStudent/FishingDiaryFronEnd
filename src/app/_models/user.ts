@@ -1,7 +1,7 @@
 ﻿export class User {
-    id: number;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
+    idtili: number;
+    etunimi: string;
+    sukunimi: string;
+    kayttajatunnus: string;
+    salasana: string;
 }
