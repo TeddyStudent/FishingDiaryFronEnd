@@ -18,8 +18,8 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !salasana.valid }">
             <label for="salasana">Salasana</label>
-            <input type="salasana" class="form-control" name="salasana" [(ngModel)]="model.salasana" #salasana="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Salasana on pakollinen</div>
+            <input type="password" class="form-control" name="salasana" [(ngModel)]="model.salasana" #salasana="ngModel" required />
+            <div *ngIf="f.submitted && !salasana.valid" class="help-block">Salasana on pakollinen</div>
         </div>
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-primary">Rekisteröi</button>
