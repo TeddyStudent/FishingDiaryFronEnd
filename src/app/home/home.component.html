@@ -1,12 +1,12 @@
 ﻿<div class="col-md-6 col-md-offset-3">
-    <h1>Hi {{currentUser.firstName}}!</h1>
+    <h1>Hi {{currentUser[0].etunimi}}!</h1>
     <p>You're logged in with Angular 2/5 and Angular CLI!!</p>
     <h3>All registered users:</h3>
     <ul>
         <li *ngFor="let user of users">
-            {{user.username}} ({{user.firstName}} {{user.lastName}})
-            - <a (click)="deleteUser(user.id)">Delete</a>
+            {{user.kayttajatunnus}} ({{user.etunimi}} {{user.sukunimi}})
+            - <a (click)="deleteUser(user.idtili)">Poista</a>
         </li>
     </ul>
-    <p><a [routerLink]="['/login']">Logout</a></p>
+    <p><a [routerLink]="['/login']">Kirjaudu ulos</a></p>
 </div>

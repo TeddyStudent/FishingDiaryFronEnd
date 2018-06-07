@@ -8,7 +8,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getAll() {
-        return this.http.get<User[]>('/api/users');
+        return this.http.get<User[]>('http://localhost:3005/api/user');
     }
 
     getById(id: number) {
@@ -24,6 +24,6 @@ export class UserService {
     }
 
     delete(id: number) {
-        return this.http.delete('/api/users/' + id);
+        return this.http.delete('http://localhost:3005/api/user' + id);
     }
 }
