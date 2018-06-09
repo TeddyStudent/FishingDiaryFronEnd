@@ -34,12 +34,42 @@
                 </ul>
                 -->
                 <h3>Kalareissusi:</h3>
-                <ul>
-                    <li *ngFor="let trip of trips">
-                        Pvm: {{trip.pvm}} - Paikka: {{trip.paikka}} (Id:{{trip.idreissu}})
-                        - <a (click)="deleteTrip(trip.idreissu)">Poista</a>
-                    </li>
-                </ul>
+                
+                <table class="table table-hover table-sm" id="trips">
+                    <thead>
+                    <tr>
+                      <th>Id</th><th>Päivä</th><th>Paikka</th><th>Sää</th><th>Tuulen nopeus (m/s)</th>
+                      <th>Tuulen suunta</th><th>Ilman lämpö (&#176;C)</th><th>Veden lämpö (&#176;C)</th><th>Poista</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let trip of trips">
+                      <td>{{ trip.idreissu }}</td><td>{{ trip.pvm }}</td><td>{{ trip.paikka }}</td><td>{{ trip.saa }} </td>
+                      <td>{{ trip.t_nopeus }}</td><td>{{ trip.t_suunta }}</td><td>{{ trip.l_ilma }}</td><td>{{ trip.l_vesi }}</td>
+                      <td><a (click)="deleteTrip(trip.idreissu)">Poista</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h3>Kalasi:</h3>
+                
+                <table class="table table-hover table-sm" id="catches">
+                    <thead>
+                    <tr>
+                      <th>Id</th><th>Laji</th><th>Paino (g)</th><th>Pituus (cm)</th><th>Pyyntitapa</th>
+                      <th>Viehe</th><th>Vieheen väri</th><th>Pyynti aika</th><th>Reissu ID</th><th>Käyttäjä ID</th><th>Poista</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let catch of catches">
+                      <td>{{ catch.idkalat }}</td><td>{{ catch.laji }}</td><td>{{ catch.paino }}</td><td>{{ catch.pituus }} </td>
+                      <td>{{ catch.pyyntitapa }}</td><td>{{ catch.viehe }}</td><td>{{ catch.viehe_vari }}</td><td>{{ catch.saantiaika }}</td>
+                      <td>{{ catch.reissu_idreissu }}</td><td>{{ catch.reissu_tili_idtili }}</td>
+                      <td><a (click)="deleteCatch(catch.idkalat)">Poista</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
                 
             </div>
             

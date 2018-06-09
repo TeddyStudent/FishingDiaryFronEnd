@@ -17,12 +17,21 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 
+import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule } from "@angular/material";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        routing
+        routing,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule
     ],
     declarations: [
         AppComponent,
