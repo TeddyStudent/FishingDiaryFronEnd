@@ -1,12 +1,48 @@
-﻿<div class="col-md-6 col-md-offset-3">
-    <h1>Hi {{currentUser[0].etunimi}}!</h1>
-    <p>You're logged in with Angular 2/5 and Angular CLI!!</p>
-    <h3>All registered users:</h3>
-    <ul>
-        <li *ngFor="let user of users">
-            {{user.kayttajatunnus}} ({{user.etunimi}} {{user.sukunimi}})
-            - <a (click)="deleteUser(user.idtili)">Poista</a>
-        </li>
-    </ul>
-    <p><a [routerLink]="['/login']">Kirjaudu ulos</a></p>
+﻿<div class="container">
+        
+        <div class="row justify-content-start" id="kpmenu">
+        <div class="col-lg-12">
+            <!-- Tähän menu -->
+            
+            <!-- Tähän navbar tai vastaava menu 'item' -->
+            <nav class="navbar navbar-fixed-top navbar-dark">
+                <div>
+                    <a class="navbar-brand">Kalapäiväkirja</a>
+                    <ul class="nav navbar-nav" routerLinkActive="active">
+                        <li class="nav-item"><a class="nav-link disabled" routerLink="">Reissut</a></li>
+                        <li class="nav-item"><a class="nav-link disabled" routerLink="">Raportit</a></li>
+                        <li class="nav-item"><a class="nav-link disabled" routerLink="">info</a></li>
+                        <li class="nav-item"><a class="nav-link" [routerLink]="['/login']">Kirjaudu ulos</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>                      
+        </div>
+    
+        <div class="row justify-content-start" id="kpdata">
+            <!-- Tähän alerts route -->
+            
+            <div class="col-lg-12 col-lg-offset-4">
+                <h1>Hi {{currentUser[0].etunimi}}!</h1>
+                <!--
+                <h3>Kaikki rekisteröityneet käyttäjät:</h3>
+                <ul>
+                    <li *ngFor="let user of users">
+                        {{user.kayttajatunnus}} ({{user.etunimi}} {{user.sukunimi}})
+                        - <a (click)="deleteUser(user.idtili)">Poista</a>
+                    </li>
+                </ul>
+                -->
+                <h3>Kalareissusi:</h3>
+                <ul>
+                    <li *ngFor="let trip of trips">
+                        Pvm: {{trip.pvm}} - Paikka: {{trip.paikka}} (Id:{{trip.idreissu}})
+                        - <a (click)="deleteTrip(trip.idreissu)">Poista</a>
+                    </li>
+                </ul>
+                
+            </div>
+            
+        </div>
+    
 </div>

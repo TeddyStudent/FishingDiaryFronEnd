@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { User } from '../_models/index';
+import { User,Trip } from '../_models/index';
 import { UserService, TripService } from '../_services/index';
 
 @Component({
@@ -11,13 +11,15 @@ import { UserService, TripService } from '../_services/index';
 export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
+    trips: Trip[] = [];
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private tripService: TripService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
-        this.loadAllUsers();
+        //this.loadAllUsers();
+        this.loadAllTrips();
     }
 
     deleteUser(id: number) {
@@ -27,4 +29,13 @@ export class HomeComponent implements OnInit {
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }
+
+    private loadAllTrips() {
+        this.tripService.getAll(this.currentUser[0].idtili).subscribe(trips => { this.trips = trips; });
+    }
+
+    deleteTrip(id: number) {
+        this.tripService.delete(id).subscribe(() => { this.loadAllTrips() });
+    }
+
 }
