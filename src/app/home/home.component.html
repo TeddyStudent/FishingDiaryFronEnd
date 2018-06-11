@@ -43,7 +43,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let trip of trips">
+                    <tr *ngFor="let trip of trips" (click)="setSelectedtrip(trip.idreissu)">
                       <td>{{ trip.idreissu }}</td><td>{{ trip.pvm }}</td><td>{{ trip.paikka }}</td><td>{{ trip.saa }} </td>
                       <td>{{ trip.t_nopeus }}</td><td>{{ trip.t_suunta }}</td><td>{{ trip.l_ilma }}</td><td>{{ trip.l_vesi }}</td>
                       <td><a (click)="deleteTrip(trip.idreissu)">Poista</a></td>

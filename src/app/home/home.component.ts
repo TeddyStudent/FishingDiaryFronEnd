@@ -10,9 +10,10 @@ import { UserService, TripService, CatchService } from '../_services/index';
 
 export class HomeComponent implements OnInit {
     currentUser: User;
-    users: User[] = [];
+    //users: User[] = [];
     trips: Trip[] = [];
     catches: Catch[] = [];
+    selectedTrip: number;
 
     constructor(private userService: UserService, private tripService: TripService, private catchService: CatchService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
         this.loadAllCatches();
     }
 
+    /*
     deleteUser(id: number) {
         this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
     }
@@ -31,6 +33,7 @@ export class HomeComponent implements OnInit {
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }
+    */
 
     private loadAllTrips() {
         this.tripService.getAll(this.currentUser[0].idtili).subscribe(trips => { this.trips = trips; });
@@ -48,6 +51,10 @@ export class HomeComponent implements OnInit {
         this.catchService.delete(id).subscribe(() => { this.loadAllCatches() });
     }
 
+    setSelectedtrip(id: number) {
+        this.selectedTrip = id;
+        console.log('selected trip (id) is: ' + this.selectedTrip);
+    }
 
 
 }
