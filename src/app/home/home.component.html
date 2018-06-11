@@ -60,8 +60,8 @@
                       <th>Viehe</th><th>Vieheen väri</th><th>Pyynti aika</th><th>Reissu ID</th><th>Käyttäjä ID</th><th>Poista</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr *ngFor="let catch of catches">
+                    <tbody *ngFor="let catch of catches">
+                    <tr *ngIf="catch.reissu_idreissu === this.selectedTrip || this.selectedTrip === undefined">
                       <td>{{ catch.idkalat }}</td><td>{{ catch.laji }}</td><td>{{ catch.paino }}</td><td>{{ catch.pituus }} </td>
                       <td>{{ catch.pyyntitapa }}</td><td>{{ catch.viehe }}</td><td>{{ catch.viehe_vari }}</td><td>{{ catch.saantiaika }}</td>
                       <td>{{ catch.reissu_idreissu }}</td><td>{{ catch.reissu_tili_idtili }}</td>
