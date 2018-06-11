@@ -1,5 +1,5 @@
 ﻿export * from './user';
 export * from './trip';
-export * from './fish';
+export * from './catch';
 export * from './lure';
 export * from './species';

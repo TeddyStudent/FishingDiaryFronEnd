@@ -1,4 +1,4 @@
-export class Fish {
+export class Catch {
 	idkalat: number;
 	laji: string;
 	paino: number;
