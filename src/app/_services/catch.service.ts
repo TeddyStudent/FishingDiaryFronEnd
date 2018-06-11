@@ -15,13 +15,13 @@ export class CatchService {
 	// Get catches by trip id, implement if needed
 
 	// Create new catch, catch object must include user and trip id
-    create(catch: Catch) {
-        return this.http.post('http://localhost:3005/api/catch', catch);
+    create(_catch: Catch) {
+        return this.http.post('http://localhost:3005/api/catch', _catch);
     }
 
 	// Update catch
-    update(catch: Catch) {
-        return this.http.put('http://localhost:3005/api/catch/' + catch.idkalat, catch);
+    update(_catch: Catch) {
+        return this.http.put('http://localhost:3005/api/catch/' + _catch.idkalat, _catch);
     }
 
 	// Delete catch
