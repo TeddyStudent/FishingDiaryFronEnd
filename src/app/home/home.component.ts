@@ -3,6 +3,8 @@
 import { User,Trip,Catch } from '../_models/index';
 import { UserService, TripService, CatchService } from '../_services/index';
 
+import {MatTable, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+
 @Component({
     moduleId: module.id.toString(),
     templateUrl: 'home.component.html'

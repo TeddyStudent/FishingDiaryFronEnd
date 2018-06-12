@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="container-fluid">
         
         <div class="row justify-content-start" id="kpmenu">
         <div class="col-lg-12">
@@ -22,18 +22,10 @@
         <div class="row justify-content-start" id="kpdata">
             <!-- Tähän alerts route -->
             
-            <div class="col-lg-12 col-lg-offset-4">
+            <div class="col-lg"> <!-- col-lg-offset-4"> -->
                 <h1>Hi {{currentUser[0].etunimi}}!</h1>
-                <!--
-                <h3>Kaikki rekisteröityneet käyttäjät:</h3>
-                <ul>
-                    <li *ngFor="let user of users">
-                        {{user.kayttajatunnus}} ({{user.etunimi}} {{user.sukunimi}})
-                        - <a (click)="deleteUser(user.idtili)">Poista</a>
-                    </li>
-                </ul>
-                -->
-                <h3>Kalareissusi:</h3>
+
+                <h3>Kalareissusi</h3>
                 
                 <table class="table table-hover table-sm" id="trips">
                     <thead>
@@ -51,13 +43,68 @@
                     </tbody>
                 </table>
 
-                <h3>Kalasi:</h3>
+                <!-- <h3>Uusi reissu</h3> -->
+                <div id="newTrip">
+                    <h3>Lisää reissu</h3>
+                    <form class="form-inline" id="tripInputForm">
+                    <div class="form-group">
+                        <div for="tripDateInput" style="font-weight: 400;">Päivä</div>
+                        <input type="date" class="form-control" id="tripDateInput">
+                    </div>
+                    <div class="form-group">
+                        <div for="tripLocationInput" style="font-weight: 400;">Paikka</div>
+                        <input type="text" class="form-control" id="tripLocationInput" placeholder="Anna kalapaikka">
+                    </div>
+                    <div class="form-group">
+                        <div for="tripWheatherInput" style="font-weight: 400;">Sää</div>
+                        <select class="form-control" id="tripWheatherInput">
+                            <option>pilvinen</option>
+                            <option>puolipilvinen</option>
+                            <option>selkeä</option>
+                            <option>sadekuuroja</option>
+                            <option>kovaa sadetta</option>
+                            <option>ukkosta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div for="tripwindSpeedInput" style="font-weight: 400;">Tuulen nopeus (m/s)</div>
+                        <input type="number" class="form-control" id="tripWindSpeedInput">
+                    </div>
+                    <div class="form-group">
+                        <div for="tripWindDirectionInput" style="font-weight: 400;">Tuulen suunta</div>
+                        <select class="form-control" id="tripWindDirectionInput">
+                            <option>pohjoinen</option>
+                            <option>koillinen</option>
+                            <option>itä</option>
+                            <option>kaakko</option>
+                            <option>etelä</option>
+                            <option>lounas</option>
+                            <option>länsi</option>
+                            <option>luode</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div for="tripAirTempInput" style="font-weight: 400;">Ilman lämpö (&#176;C)</div>
+                        <input type="number" class="form-control" id="tripAirTempInput">
+                    </div>
+                    <div class="form-group">
+                        <div for="tripWaterTempInput" style="font-weight: 400;">Veden lämpö (&#176;C)</div>
+                        <input type="number" class="form-control" id="tripWaterTempInput">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Luo</button>
+                    </div>
+                    </form>
+                    <button class="btn btn-info" onclick="hideAddTripsElement()">Piilota</button>
+                </div>
+
+                <h3>Kalasi</h3>
                 
                 <table class="table table-hover table-sm" id="catches">
                     <thead>
                     <tr>
-                      <th>Id</th><th>Laji</th><th>Paino (g)</th><th>Pituus (cm)</th><th>Pyyntitapa</th>
-                      <th>Viehe</th><th>Vieheen väri</th><th>Pyynti aika</th><th>Reissu ID</th><th>Käyttäjä ID</th><th>Poista</th>
+                      <th>Id</th><th>Kalalaji</th><th>Paino (g)</th><th>Pituus (cm)</th><th>Pyyntitapa</th>
+                      <th>Viehe</th><th>Vieheen väri</th><th>Pyyntiaika</th><th>Reissu ID</th><th>Käyttäjä ID</th><th>Poista</th>
                     </tr>
                     </thead>
                     <tbody *ngFor="let catch of catches">
@@ -69,6 +116,129 @@
                     </tr>
                     </tbody>
                 </table>
+                
+
+                <!-- Add fishes -->  
+                <div id="newCatch">
+                    <h3>Uusi kala</h3>
+                    <form class="form-inline" id="fishInputForm">
+                    <div class="form-group">
+                        <div for="fishTripRefInput" style="font-weight: 400;">Kalareissun ID</div>
+                        <input type="text" class="form-control" id="fishTripRefInput">
+                    </div>
+                    <div class="form-group">
+                        <div for="fishSpeciesInput" style="font-weight: 400;">Kalalaji</div>
+                        <input type="text" class="form-control" list="species" id="tripSpeciesInput">
+                        <datalist id="species">
+                            <option value="Ahven">
+                            <option value="Allikkosalakka">
+                            <option value="Ankerias">
+                            <option value="Elaska">
+                            <option value="Harjus">
+                            <option value="Harmaanieriä">
+                            <option value="Hauki">
+                            <option value="hietatokko">
+                            <option value="hopearuutana">
+                            <option value="härkäsimppu">
+                            <option value="imukala">
+                            <option value="isosimppu">
+                            <option value="isotuulenkala">
+                            <option value="kampela">
+                            <option value="karppi">
+                            <option value="kiiski">
+                            <option value="kilohaili">
+                            <option value="kirjoeväsimppu">
+                            <option value="kirjolohi">
+                            <option value="kivennuoliainen">
+                            <option value="kivinilkka">
+                            <option value="kivisimppu">
+                            <option value="kolmipiikki">
+                            <option value="Kuha">
+                            <option value="kuore">
+                            <option value="kymmenpiikki">
+                            <option value="lahna">
+                            <option value="liejutokko">
+                            <option value="Lohi">
+                            <option value="made">
+                            <option value="miekkasärki">
+                            <option value="muikku">
+                            <option value="mustatokko">
+                            <option value="mustatäplätokko">
+                            <option value="mutu">
+                            <option value="nieriä">
+                            <option value="nokkakala">
+                            <option value="pasuri">
+                            <option value="piikkikampela">
+                            <option value="piikkimonni">
+                            <option value="piikkisimppu">
+                            <option value="pikkutuulenkala">
+                            <option value="puronieriä">
+                            <option value="rantaneula">
+                            <option value="rantanuoliainen">
+                            <option value="rasvakala">
+                            <option value="ruutana">
+                            <option value="salakka">
+                            <option value="seipi">
+                            <option value="seitsenruototokko">
+                            <option value="siika">
+                            <option value="silakka">
+                            <option value="siloneula">
+                            <option value="sorva">
+                            <option value="sulkava">
+                            <option value="suutari">
+                            <option value="särki">
+                            <option value="särmäneula">
+                            <option value="säyne">
+                            <option value="Taimen">
+                            <option value="teisti">
+                            <option value="toutain">
+                            <option value="turpa">
+                            <option value="turska">
+                            <option value="törö">
+                            <option value="valkoevätörö">
+                            <option value="vaskikala">
+                            <option value="viisipiikki">
+                            <option value="vimpa">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <div for="fishWeigthInput" style="font-weight: 400;">Paino (g)</div>
+                        <input type="number" class="form-control" id="fishWeigthInput">
+                    </div>
+                    <div class="form-group">
+                        <div for="fishLengthInput" style="font-weight: 400;">Pituus (cm)</div>
+                        <input type="number" class="form-control" id="fishLengthInput" placeholder="Pituus">
+                    </div>
+                    <div class="form-group">
+                        <div for="fishCatchTypeInput" style="font-weight: 400;">Pyyntitapa</div>
+                        <select class="form-control" id="fishCatchTypeInput">
+                            <option>Onki</option>
+                            <option>Uistelu</option>
+                            <option>Heitto</option>
+                            <option>Vertikaali</option>
+                            <option>Verkko</option>
+                            <option>Katiska</option>
+                        </select>
+                    </div>  
+                    <div class="form-group">
+                        <div for="fishLureInput" style="font-weight: 400;">Viehe</div>
+                        <input type="text" class="form-control" id="fishLureInput">
+                    </div>
+                    <div class="form-group">
+                        <div for="tripLureColorInput" style="font-weight: 400;">Vieheen väri</div>
+                        <input type="text" class="form-control" id="tripLureColorInput">
+                    </div>
+                    <div class="form-group">
+                        <div for="fishTimeInput" style="font-weight: 400;">Pyyntiaika</div>
+                        <input type="text" class="form-control" id="fishTimeInput" placeholder="HH:MM">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Luo</button>
+                    </div>          
+                    </form>
+                    <button class="btn btn-info" onclick="hideAddFishesElement()">Piilota</button>
+                </div>
+                 <!-- end of add fishes -->
 
                 
             </div>
