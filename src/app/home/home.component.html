@@ -22,7 +22,7 @@
         <div class="row justify-content-start" id="kpdata">
             <!-- Tähän alerts route -->
             
-            <div class="col-lg"> <!-- col-lg-offset-4"> -->
+            <div class="col-lg-12"> <!-- col-lg-offset-4"> -->
                 <h1>Hi {{currentUser[0].etunimi}}!</h1>
 
                 <h3>Kalareissusi</h3>
@@ -46,54 +46,69 @@
                 <!-- <h3>Uusi reissu</h3> -->
                 <div id="newTrip">
                     <h3>Lisää reissu</h3>
-                    <form class="form-inline" id="tripInputForm">
-                    <div class="form-group">
-                        <div for="tripDateInput" style="font-weight: 400;">Päivä</div>
-                        <input type="date" class="form-control" id="tripDateInput">
+
+                    <form class="form-inline" name="form" (ngSubmit)="f.form.valid && createTrip()" #f="ngForm" novalidate>
+                    
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pvm.valid }">
+                        <div for="pvm" style="font-weight: 400;">Päivämäärä</div>
+                        <input type="date" class="form-control" name="pvm" [(ngModel)]="newTrip.pvm" #pvm="ngModel" required />
+                        <div *ngIf="f.submitted && !pvm.valid" class="help-block">Päivämäärä on pakollinen</div>
                     </div>
-                    <div class="form-group">
-                        <div for="tripLocationInput" style="font-weight: 400;">Paikka</div>
-                        <input type="text" class="form-control" id="tripLocationInput" placeholder="Anna kalapaikka">
+                    
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !paikka.valid }">
+                        <div for="paikka" style="font-weight: 400;">Paikka</div>
+                        <input type="text" class="form-control" name="paikka" [(ngModel)]="newTrip.paikka" #paikka="ngModel" required />
+                        <div *ngIf="f.submitted && !paikka.valid" class="help-block">Paikka on pakollinen</div>
                     </div>
-                    <div class="form-group">
-                        <div for="tripWheatherInput" style="font-weight: 400;">Sää</div>
-                        <select class="form-control" id="tripWheatherInput">
-                            <option>pilvinen</option>
-                            <option>puolipilvinen</option>
-                            <option>selkeä</option>
-                            <option>sadekuuroja</option>
-                            <option>kovaa sadetta</option>
-                            <option>ukkosta</option>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !saa.valid }">
+                        <div for="saa" style="font-weight: 400;">Sää</div>
+                        <select class="form-control" name="saa" [(ngModel)]="newTrip.saa" #saa="ngModel">
+                            <option *ngFor="let saa of saat" [value]="saa.value">  
+                            {{saa.display}}
+                            </option>
                         </select>
+                        <div *ngIf="f.submitted && !saa.valid" class="help-block">Sää on pakollinen</div>
                     </div>
-                    <div class="form-group">
-                        <div for="tripwindSpeedInput" style="font-weight: 400;">Tuulen nopeus (m/s)</div>
-                        <input type="number" class="form-control" id="tripWindSpeedInput">
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !t_nopeus.valid }">
+                        <div for="t_nopeus" style="font-weight: 400;">Tuulen nopeus (m/s)</div>
+                        <input type="number" class="form-control" name="t_nopeus" [(ngModel)]="newTrip.t_nopeus" #t_nopeus="ngModel" />
+                        <div *ngIf="f.submitted && !t_nopeus.valid" class="help-block">Tuulen nopeus on pakollinen</div>
                     </div>
-                    <div class="form-group">
-                        <div for="tripWindDirectionInput" style="font-weight: 400;">Tuulen suunta</div>
-                        <select class="form-control" id="tripWindDirectionInput">
-                            <option>pohjoinen</option>
-                            <option>koillinen</option>
-                            <option>itä</option>
-                            <option>kaakko</option>
-                            <option>etelä</option>
-                            <option>lounas</option>
-                            <option>länsi</option>
-                            <option>luode</option>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !t_suunta.valid }">
+                        <div for="t_suunta" style="font-weight: 400;">Tuulen suunta</div>
+                        <select class="form-control" name="t_suunta" [(ngModel)]="newTrip.t_suunta" #t_suunta="ngModel">
+                            <option *ngFor="let suunna of suunnat" [value]="suunna.value">  
+                            {{suunna.display}}
+                            </option>
                         </select>
+                        <div *ngIf="f.submitted && !t_suunta.valid" class="help-block">Tuulen suunta on pakollinen</div>
                     </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !l_ilma.valid }">
+                        <div for="l_ilma" style="font-weight: 400;">Ilman lämpö (&#176;C)</div>
+                        <input type="number" class="form-control" name="l_ilma" [(ngModel)]="newTrip.l_ilma" #l_ilma="ngModel" />
+                        <div *ngIf="f.submitted && !l_ilma.valid" class="help-block">Ilman lämpö on pakollinen</div>
+                    </div>
+                    
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !l_vesi.valid }">
+                        <div for="l_vesi" style="font-weight: 400;">Veden lämpö (&#176;C)</div>
+                        <input type="number" class="form-control" name="l_vesi" [(ngModel)]="newTrip.l_vesi" #l_vesi="ngModel" />
+                        <div *ngIf="f.submitted && !l_vesi.valid" class="help-block">Veden lämpö on pakollinen</div>
+                    </div>
+                    
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !tili_idtili.valid }">
+                        <div for="tili_idtili" style="font-weight: 400;">Käyttäjän ID</div>
+                        <input type="number" class="form-control" name="tili_idtili" [(ngModel)]="newTrip.tili_idtili" #tili_idtili="ngModel" required />
+                        <div *ngIf="f.submitted && !tili_idtili.valid" class="help-block">Käyttäjän ID on pakollinen</div>
+                    </div>
+                    
                     <div class="form-group">
-                        <div for="tripAirTempInput" style="font-weight: 400;">Ilman lämpö (&#176;C)</div>
-                        <input type="number" class="form-control" id="tripAirTempInput">
+                        <button class="btn btn-primary">Luo kalaretki</button>
                     </div>
-                    <div class="form-group">
-                        <div for="tripWaterTempInput" style="font-weight: 400;">Veden lämpö (&#176;C)</div>
-                        <input type="number" class="form-control" id="tripWaterTempInput">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Luo</button>
-                    </div>
+                    
                     </form>
                     <button class="btn btn-info" onclick="hideAddTripsElement()">Piilota</button>
                 </div>

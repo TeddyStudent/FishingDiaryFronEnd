@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
 import { User,Trip,Catch } from '../_models/index';
-import { UserService, TripService, CatchService } from '../_services/index';
+import { UserService, TripService, CatchService, AlertService } from '../_services/index';
 
 import {MatTable, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
@@ -16,8 +16,32 @@ export class HomeComponent implements OnInit {
     trips: Trip[] = [];
     catches: Catch[] = [];
     selectedTrip: number;
+    newTrip: any = {};
 
-    constructor(private userService: UserService, private tripService: TripService, private catchService: CatchService) {
+    public saat = [
+        { value: 'pilvinen', display: 'pilvinen' },
+        { value: 'puolipilvinen', display: 'puolipilvinen' },
+        { value: 'selkeä', display: 'selkeä' },
+        { value: 'sadekuuroja', display: 'sadekuuroja' },
+        { value: 'kovaa sadetta', display: 'kovaa sadetta' },
+        { value: 'ukkosta', display: 'ukkosta' }
+    ];
+
+    public suunnat = [
+        { value: 'pohjoinen', display: 'pohjoinen' },
+        { value: 'koillinen', display: 'koillinen' },
+        { value: 'itä', display: 'itä' },
+        { value: 'kaakko', display: 'kaakko' },
+        { value: 'etelä', display: 'etelä' },
+        { value: 'lounas', display: 'lounas' },
+        { value: 'länsi', display: 'länsi' },
+        { value: 'luode', display: 'luode' }
+    ];
+
+    constructor(private userService: UserService, 
+        private tripService: TripService, 
+        private catchService: CatchService,
+        private alertService: AlertService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -39,6 +63,19 @@ export class HomeComponent implements OnInit {
 
     private loadAllTrips() {
         this.tripService.getAll(this.currentUser[0].idtili).subscribe(trips => { this.trips = trips; });
+    }
+
+    createTrip() {
+        this.tripService.create(this.newTrip)
+            .subscribe(
+                data => {
+                    this.alertService.success('Luonti onnistui', true);
+                    // päivitä trip table
+                    this.loadAllTrips();
+                },
+                error => {
+                    this.alertService.error(error);     
+                });
     }
 
     deleteTrip(id: number) {
