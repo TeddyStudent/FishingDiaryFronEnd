@@ -23,3 +23,16 @@
 .navbar {
     background-color: white;
 }
+
+td:hover{
+    cursor: pointer;
+}
+
+.table tr.active td {
+    background-color:#123456 !important;
+    color: white;
+}
+
+#newTrip, #newCatch{
+    display: none;
+}

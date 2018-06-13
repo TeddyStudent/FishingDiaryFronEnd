@@ -15,7 +15,12 @@ export class HomeComponent implements OnInit {
     //users: User[] = [];
     trips: Trip[] = [];
     catches: Catch[] = [];
-    selectedTrip: number;
+    selectedTrip: Trip;
+    selectedTripId: number;
+    selectedTripRow: number;
+    selectedCatch: Catch;
+    selectedCatchId: number;
+    selectedCatchRow: number;
     newTrip: any = {};
 
     public saat = [
@@ -51,16 +56,6 @@ export class HomeComponent implements OnInit {
         this.loadAllCatches();
     }
 
-    /*
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
-    }
-    */
-
     private loadAllTrips() {
         this.tripService.getAll(this.currentUser[0].idtili).subscribe(trips => { this.trips = trips; });
     }
@@ -79,7 +74,14 @@ export class HomeComponent implements OnInit {
     }
 
     deleteTrip(id: number) {
-        this.tripService.delete(id).subscribe(() => { this.loadAllTrips() });
+        this.tripService.delete(id)
+            .subscribe(
+                () => { 
+                    this.loadAllTrips() 
+                },
+                error => {
+                    this.alertService.error(error);
+                });
     }
 
     private loadAllCatches() {
@@ -87,13 +89,46 @@ export class HomeComponent implements OnInit {
     }
 
     deleteCatch(id: number) {
-        this.catchService.delete(id).subscribe(() => { this.loadAllCatches() });
+        this.catchService.delete(id)
+            .subscribe(
+                () => { 
+                    this.loadAllCatches() 
+                },
+                error => {
+                    this.alertService.error(error);
+                });
     }
 
-    setSelectedtrip(id: number) {
-        this.selectedTrip = id;
-        console.log('selected trip (id) is: ' + this.selectedTrip);
+    setSelectedtrip(index,chosen: Trip) {
+        this.selectedTrip = chosen;
+        this.selectedTripId = chosen.idreissu;
+        console.log('this.selectedTrip.idreissu is: ' + this.selectedTrip.idreissu);
+        console.log('this.selectedTripId is: ' + this.selectedTripId);
+        this.selectedTripRow = index;
     }
 
+    setSelectedCatch(index,chosen: Catch) {
+        this.selectedCatch = chosen;
+        this.selectedCatchId = chosen.idkalat;
+        console.log('this.selectedCatch.idkalat is: ' + this.selectedCatch.idkalat);
+        console.log('this.selectedCatchId is: ' + this.selectedCatchId);
+        this.selectedCatchRow = index;
+    }
+
+    showhideNewTripElement(action) {
+        if (action == "show") {
+            document.getElementById("newTrip").style.display = "block";
+        } else {
+            document.getElementById("newTrip").style.display = "none";
+        }    
+    }
+
+    showhideNewCatchElement(action) {
+        if (action == "show") {
+            document.getElementById("newCatch").style.display = "block";
+        } else {
+            document.getElementById("newCatch").style.display = "none";
+        }    
+    }
 
 }

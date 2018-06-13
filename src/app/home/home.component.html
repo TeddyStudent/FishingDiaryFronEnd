@@ -35,13 +35,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let trip of trips" (click)="setSelectedtrip(trip.idreissu)">
+                    <tr *ngFor="let trip of trips; let i = index" (click)="setSelectedtrip(i,trip)" [class.active]="i == selectedTripRow">
                       <td>{{ trip.idreissu }}</td><td>{{ trip.pvm }}</td><td>{{ trip.paikka }}</td><td>{{ trip.saa }} </td>
                       <td>{{ trip.t_nopeus }}</td><td>{{ trip.t_suunta }}</td><td>{{ trip.l_ilma }}</td><td>{{ trip.l_vesi }}</td>
                       <td><a (click)="deleteTrip(trip.idreissu)">Poista</a></td>
                     </tr>
                     </tbody>
                 </table>
+
+                <div>
+                    <button class="btn btn-info" (click)="showhideNewTripElement('show')">Luo uusi reissu</button>
+                    <button class="btn btn-info disabled" (click)="showhideModifyTripElement('show')">Muokkaa reissun tietoja</button>
+                </div>
 
                 <!-- <h3>Uusi reissu</h3> -->
                 <div id="newTrip">
@@ -110,10 +115,15 @@
                     </div>
                     
                     </form>
-                    <button class="btn btn-info" onclick="hideAddTripsElement()">Piilota</button>
+                    <button class="btn btn-info" (click)="showhideNewTripElement('hide')">Piilota</button>
                 </div>
 
-                <h3>Kalasi</h3>
+                <div *ngIf="selectedTripRow !== undefined">
+                    <h3>Kalasi reissulta ({{ trips[selectedTripRow].paikka }}, {{ trips[selectedTripRow].pvm }})</h3>
+                </div>
+                <div *ngIf="selectedTripRow === undefined">
+                    <h3>Kalasi reissulta (kaikki reissut)</h3>
+                </div>
                 
                 <table class="table table-hover table-sm" id="catches">
                     <thead>
@@ -123,7 +133,7 @@
                     </tr>
                     </thead>
                     <tbody *ngFor="let catch of catches">
-                    <tr *ngIf="catch.reissu_idreissu === this.selectedTrip || this.selectedTrip === undefined">
+                    <tr *ngIf="catch.reissu_idreissu === this.selectedTripId || this.selectedTripId === undefined">
                       <td>{{ catch.idkalat }}</td><td>{{ catch.laji }}</td><td>{{ catch.paino }}</td><td>{{ catch.pituus }} </td>
                       <td>{{ catch.pyyntitapa }}</td><td>{{ catch.viehe }}</td><td>{{ catch.viehe_vari }}</td><td>{{ catch.saantiaika }}</td>
                       <td>{{ catch.reissu_idreissu }}</td><td>{{ catch.reissu_tili_idtili }}</td>
@@ -132,6 +142,10 @@
                     </tbody>
                 </table>
                 
+                <div>
+                    <button class="btn btn-info" (click)="showhideNewCatchElement('show')">Luo uusi kala</button>
+                    <button class="btn btn-info disabled" (click)="showhideModifyCatchElement('show')">Muokkaa kalan tietoja</button>
+                </div>
 
                 <!-- Add fishes -->  
                 <div id="newCatch">
@@ -251,7 +265,7 @@
                         <button type="submit" class="btn btn-primary">Luo</button>
                     </div>          
                     </form>
-                    <button class="btn btn-info" onclick="hideAddFishesElement()">Piilota</button>
+                    <button class="btn btn-info" (click)="showhideNewCatchElement('hide')">Piilota</button>
                 </div>
                  <!-- end of add fishes -->
 
