@@ -23,7 +23,7 @@
             <!-- Tähän alerts route -->
             
             <div class="col-lg-12"> <!-- col-lg-offset-4"> -->
-                <h1>Hi {{currentUser[0].etunimi}}!</h1>
+                <h1>Moi {{currentUser[0].etunimi}}!</h1>
 
                 <h3>Kalareissusi</h3>
                 
@@ -52,7 +52,7 @@
                 <div id="newTrip">
                     <h3>Lisää reissu</h3>
 
-                    <form class="form-inline" name="form" (ngSubmit)="f.form.valid && createTrip()" #f="ngForm" novalidate>
+                    <form class="form-inline" name="form" (ngSubmit)="f.form.valid && createTrip(f)" #f="ngForm" novalidate>
                     
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pvm.valid }">
                         <div for="pvm" style="font-weight: 400;">Päivämäärä</div>
@@ -104,14 +104,16 @@
                         <div *ngIf="f.submitted && !l_vesi.valid" class="help-block">Veden lämpö on pakollinen</div>
                     </div>
                     
+                    <!-- removed from form since tili_idtili is set in createTrip() function on submit
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !tili_idtili.valid }">
                         <div for="tili_idtili" style="font-weight: 400;">Käyttäjän ID</div>
                         <input type="number" class="form-control" name="tili_idtili" [(ngModel)]="newTrip.tili_idtili" #tili_idtili="ngModel" required />
                         <div *ngIf="f.submitted && !tili_idtili.valid" class="help-block">Käyttäjän ID on pakollinen</div>
                     </div>
-                    
+                    -->
+
                     <div class="form-group">
-                        <button class="btn btn-primary">Luo kalaretki</button>
+                        <button class="btn btn-primary" [disabled]="!f.valid">Luo kalaretki</button>
                     </div>
                     
                     </form>

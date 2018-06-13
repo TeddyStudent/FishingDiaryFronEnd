@@ -5,6 +5,8 @@ import { UserService, TripService, CatchService, AlertService } from '../_servic
 
 import {MatTable, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
+import {NgForm} from '@angular/forms';
+
 @Component({
     moduleId: module.id.toString(),
     templateUrl: 'home.component.html'
@@ -60,7 +62,10 @@ export class HomeComponent implements OnInit {
         this.tripService.getAll(this.currentUser[0].idtili).subscribe(trips => { this.trips = trips; });
     }
 
-    createTrip() {
+    createTrip(f: NgForm) {
+        // set idtili from currentUser to newTrip.idtili before the create operation
+        this.newTrip.tili_idtili = this.currentUser[0].idtili;
+        
         this.tripService.create(this.newTrip)
             .subscribe(
                 data => {
@@ -71,6 +76,9 @@ export class HomeComponent implements OnInit {
                 error => {
                     this.alertService.error(error);     
                 });
+        f.resetForm();
+        this.showhideNewTripElement('hide');
+        
     }
 
     deleteTrip(id: number) {
