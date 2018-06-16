@@ -25,6 +25,9 @@
             <div class="col-lg-12"> <!-- col-lg-offset-4"> -->
                 <h1>Moi {{currentUser[0].etunimi}}!</h1>
 
+                <!-- Hide table if no data is available -->
+                <div *ngIf="trips.length > 0">
+
                 <h3>Kalareissusi</h3>
                 
                 <table class="table table-hover table-sm" id="trips">
@@ -42,6 +45,13 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <!-- Hide table if no data is available -->
+                </div>
+                <!-- Show this if there are no trips -->
+                <div *ngIf="!trips.length">
+                    <p>Aloita päiväkirjan pitäminen lisäämällä uusia kalareissuja</p>
+                </div>
 
                 <div>
                     <button class="btn btn-info" (click)="showhideNewTripElement('show')">Luo uusi reissu</button>
@@ -119,6 +129,9 @@
                     </form>
                     <button class="btn btn-info" (click)="showhideNewTripElement('hide')">Piilota</button>
                 </div>
+
+                <!-- hide everything from below is there are no trips -->
+                <div *ngIf="trips.length > 0">
 
                 <div *ngIf="selectedTripRow !== undefined">
                     <h3>Kalasi reissulta ({{ trips[selectedTripRow].paikka }}, {{ trips[selectedTripRow].pvm }})</h3>
@@ -269,8 +282,10 @@
                     </form>
                     <button class="btn btn-info" (click)="showhideNewCatchElement('hide')">Piilota</button>
                 </div>
-                 <!-- end of add fishes -->
+                <!-- end of add fishes -->
 
+                <!-- hide catches data if no trips -->
+                </div> 
                 
             </div>
             
