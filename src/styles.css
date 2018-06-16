@@ -36,3 +36,7 @@ td:hover{
 #newTrip, #newCatch{
     display: none;
 }
+
+.toHide {
+    display: none;
+}

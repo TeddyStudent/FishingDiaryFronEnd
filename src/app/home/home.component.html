@@ -41,7 +41,7 @@
                     <tr *ngFor="let trip of trips; let i = index" (click)="setSelectedtrip(i,trip)" [class.active]="i == selectedTripRow">
                       <td>{{ trip.idreissu }}</td><td>{{ trip.pvm }}</td><td>{{ trip.paikka }}</td><td>{{ trip.saa }} </td>
                       <td>{{ trip.t_nopeus }}</td><td>{{ trip.t_suunta }}</td><td>{{ trip.l_ilma }}</td><td>{{ trip.l_vesi }}</td>
-                      <td><a (click)="deleteTrip(trip.idreissu)">Poista</a></td>
+                      <td><a (click)="$event.stopPropagation();deleteTrip(trip.idreissu)">Poista</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -143,15 +143,15 @@
                 <table class="table table-hover table-sm" id="catches">
                     <thead>
                     <tr>
-                      <th>Id</th><th>Kalalaji</th><th>Paino (g)</th><th>Pituus (cm)</th><th>Pyyntitapa</th>
-                      <th>Viehe</th><th>Vieheen väri</th><th>Pyyntiaika</th><th>Reissu ID</th><th>Käyttäjä ID</th><th>Poista</th>
+                      <th class="toHide">Id</th><th>Kalalaji</th><th>Paino (g)</th><th>Pituus (cm)</th><th>Pyyntitapa</th>
+                      <th>Viehe</th><th>Vieheen väri</th><th>Pyyntiaika</th><th>Reissu ID</th><th class="toHide">Käyttäjä ID</th><th>Poista</th>
                     </tr>
                     </thead>
                     <tbody *ngFor="let catch of catches">
                     <tr *ngIf="catch.reissu_idreissu === this.selectedTripId || this.selectedTripId === undefined">
-                      <td>{{ catch.idkalat }}</td><td>{{ catch.laji }}</td><td>{{ catch.paino }}</td><td>{{ catch.pituus }} </td>
+                      <td class="toHide">{{ catch.idkalat }}</td><td>{{ catch.laji }}</td><td>{{ catch.paino }}</td><td>{{ catch.pituus }} </td>
                       <td>{{ catch.pyyntitapa }}</td><td>{{ catch.viehe }}</td><td>{{ catch.viehe_vari }}</td><td>{{ catch.saantiaika }}</td>
-                      <td>{{ catch.reissu_idreissu }}</td><td>{{ catch.reissu_tili_idtili }}</td>
+                      <td>{{ catch.reissu_idreissu }}</td><td class="toHide">{{ catch.reissu_tili_idtili }}</td>
                       <td><a (click)="deleteCatch(catch.idkalat)">Poista</a></td>
                     </tr>
                     </tbody>
