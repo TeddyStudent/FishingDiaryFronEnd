@@ -30,7 +30,10 @@
 
                 <h3>Kalareissusi</h3>
                 
-                <table class="table table-hover table-sm" id="trips">
+                <!-- try set a fixed size for table -->
+                <div class="fixedTripTable">
+
+                <table class="table table-hover table-bordered table-sm" id="trips">
                     <thead>
                     <tr>
                       <th>Id</th><th>Päivä</th><th>Paikka</th><th>Sää</th><th>Tuulen nopeus (m/s)</th>
@@ -45,6 +48,9 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <!-- end of fixed table -->
+                </div>
 
                 <!-- Hide table if no data is available -->
                 </div>
@@ -140,7 +146,9 @@
                     <h3>Kalasi reissulta (kaikki reissut)</h3>
                 </div>
                 
-                <table class="table table-hover table-sm" id="catches">
+                <!-- fixed table div -->
+                <div class="fixedCatchTable">
+                <table class="table table-hover table-bordered table-sm" id="catches">
                     <thead>
                     <tr>
                       <th class="toHide">Id</th><th>Kalalaji</th><th>Paino (g)</th><th>Pituus (cm)</th><th>Pyyntitapa</th>
@@ -156,7 +164,8 @@
                     </tr>
                     </tbody>
                 </table>
-                
+                <!-- end of fixed table div -->
+                </div>
                 <div>
                     <button class="btn btn-info" (click)="showhideNewCatchElement('show')">Luo uusi kala</button>
                     <button class="btn btn-info disabled" (click)="showhideModifyCatchElement('show')">Muokkaa kalan tietoja</button>

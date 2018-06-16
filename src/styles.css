@@ -40,3 +40,17 @@ td:hover{
 .toHide {
     display: none;
 }
+
+.fixedTripTable {
+    height: 13em;
+    overflow: auto;
+}
+
+.fixedCatchTable {
+    height: 17em;
+    overflow: auto;
+}
+
+.table thead {
+    background-color: #337ab7;
+}
