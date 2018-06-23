@@ -118,8 +118,9 @@ export class HomeComponent implements OnInit {
         }
         this.tripService.delete(id)
             .subscribe(
-                () => { 
-                    this.loadAllTrips() 
+                () => {
+                    this.alertService.success('Poisto onnistui', true); 
+                    this.loadAllTrips(); 
                 },
                 error => {
                     this.alertService.error(error);
