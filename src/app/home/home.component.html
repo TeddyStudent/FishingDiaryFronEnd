@@ -61,7 +61,7 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-info" (click)="showhideNewTripElement('show')">Luo uusi reissu</button>
+                    <button [disabled]="tripAction == 'modify'" class="btn btn-info" (click)="showhideNewTripElement('show')">Luo uusi reissu</button>
                     <!-- modify trip control is relocated in the trip table
                         <button class="btn btn-info disabled" (click)="showhideModifyTripElement('show')">Muokkaa reissun tietoja</button>
                     -->
