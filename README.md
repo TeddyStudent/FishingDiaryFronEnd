@@ -1,5 +1,7 @@
-# angular2-registration-login-example-cli
+# FishingDiaryFrontEnd
 
-Angular 2/5 User Registration and Login Example with Angular CLI
+Fishing Diary Front-end with Angular
 
-To see a demo and further details go to http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
+This repo is part of a personal competence development project where my target is to build a 'Fishing Diary' -application. 
+
+This project is based on a following project http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
