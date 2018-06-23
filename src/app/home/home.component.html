@@ -37,7 +37,7 @@
                     <thead>
                     <tr>
                       <th>Id</th><th>Päivä</th><th>Paikka</th><th>Sää</th><th>Tuulen nopeus (m/s)</th>
-                      <th>Tuulen suunta</th><th>Ilman lämpö (&#176;C)</th><th>Veden lämpö (&#176;C)</th><th>Poista</th>
+                      <th>Tuulen suunta</th><th>Ilman lämpö (&#176;C)</th><th>Veden lämpö (&#176;C)</th><th>Poista</th><th>Muokkaa</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,6 +45,7 @@
                       <td>{{ trip.idreissu }}</td><td>{{ trip.pvm }}</td><td>{{ trip.paikka }}</td><td>{{ trip.saa }} </td>
                       <td>{{ trip.t_nopeus }}</td><td>{{ trip.t_suunta }}</td><td>{{ trip.l_ilma }}</td><td>{{ trip.l_vesi }}</td>
                       <td><a (click)="$event.stopPropagation();deleteTrip(trip.idreissu)">Poista</a></td>
+                      <td><a (click)="modifyTrip(i,trip)">Muokkaa</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -61,12 +62,14 @@
 
                 <div>
                     <button class="btn btn-info" (click)="showhideNewTripElement('show')">Luo uusi reissu</button>
-                    <button class="btn btn-info disabled" (click)="showhideModifyTripElement('show')">Muokkaa reissun tietoja</button>
+                    <!-- modify trip control is relocated in the trip table
+                        <button class="btn btn-info disabled" (click)="showhideModifyTripElement('show')">Muokkaa reissun tietoja</button>
+                    -->
                 </div>
 
                 <!-- <h3>Uusi reissu</h3> -->
                 <div id="newTrip">
-                    <h3>Lisää reissu</h3>
+                    <h3>{{tripFormHeaderTxt}}</h3>
 
                     <form class="form-inline" name="form" (ngSubmit)="f.form.valid && createTrip(f)" #f="ngForm" novalidate>
                     
@@ -129,7 +132,7 @@
                     -->
 
                     <div class="form-group">
-                        <button class="btn btn-primary" [disabled]="!f.valid">Luo kalaretki</button>
+                        <button class="btn btn-primary" [disabled]="!f.valid">{{tripFormSubmitTxt}}</button>
                     </div>
                     
                     </form>

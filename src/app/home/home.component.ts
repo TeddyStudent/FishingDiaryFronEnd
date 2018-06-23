@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { User,Trip,Catch } from '../_models/index';
 import { UserService, TripService, CatchService, AlertService } from '../_services/index';
@@ -24,6 +24,10 @@ export class HomeComponent implements OnInit {
     selectedCatchId: number;
     selectedCatchRow: number;
     newTrip: any = {};
+    @ViewChild('f') form;
+    tripAction = 'create';
+    tripFormHeaderTxt = '';
+    tripFormSubmitTxt = '';
 
     public saat = [
         { value: 'pilvinen', display: 'pilvinen' },
@@ -56,6 +60,17 @@ export class HomeComponent implements OnInit {
         //this.loadAllUsers();
         this.loadAllTrips();
         this.loadAllCatches();
+        this.setTripFormTxt();
+    }
+
+    setTripFormTxt() {
+        if (this.tripAction == 'modify') {
+            this.tripFormHeaderTxt = 'Muokkaa reissua';
+            this.tripFormSubmitTxt = 'Muokkaa';
+        } else {
+            this.tripFormHeaderTxt = 'Luo uusi reissu';
+            this.tripFormSubmitTxt = 'Luo';
+        }
     }
 
     private loadAllTrips() {
@@ -65,19 +80,33 @@ export class HomeComponent implements OnInit {
     createTrip(f: NgForm) {
         // set idtili from currentUser to newTrip.idtili before the create operation
         this.newTrip.tili_idtili = this.currentUser[0].idtili;
-        
-        this.tripService.create(this.newTrip)
-            .subscribe(
-                data => {
-                    this.alertService.success('Luonti onnistui', true);
-                    // päivitä trip table
-                    this.loadAllTrips();
-                },
-                error => {
-                    this.alertService.error(error);     
-                });
-        f.resetForm();
-        this.showhideNewTripElement('hide');
+
+        if (this.tripAction == 'modify') {
+            // form submit to modify a trip
+            console.log('modify trip submit');
+
+            //functionality to send the changed trip to backend
+
+            //finally set tripAction and set form texts, clear form and hide it 
+            this.tripAction = 'create';
+            this.setTripFormTxt();
+            f.resetForm();
+            this.showhideNewTripElement('hide');
+        } else {
+            // form submit for creating a new trip
+            this.tripService.create(this.newTrip)
+                .subscribe(
+                    data => {
+                        this.alertService.success('Luonti onnistui', true);
+                        // päivitä trip table
+                        this.loadAllTrips();
+                    },
+                    error => {
+                        this.alertService.error(error);     
+                    });
+            f.resetForm();
+            this.showhideNewTripElement('hide');
+        }
         
     }
 
@@ -105,6 +134,27 @@ export class HomeComponent implements OnInit {
                 error => {
                     this.alertService.error(error);
                 });
+    }
+
+    modifyTrip(index,chosen: Trip) {
+        console.log('modify trip selected');
+        //Note: setSelectedTrip was also called when 'muokkaa' was selected
+        //set tripAction to modify so it can be checked in form submit procedure
+        this.tripAction = 'modify';
+        //set form texts suitable for modfication
+        this.setTripFormTxt();
+        //prefill form fields with selected trip data
+        this.form.setValue({
+            pvm: chosen.pvm,
+            paikka: chosen.paikka,
+            saa: chosen.saa,
+            t_nopeus: chosen.t_nopeus,
+            t_suunta: chosen.t_suunta,
+            l_ilma: chosen.l_ilma,
+            l_vesi: chosen.l_vesi
+        })
+        //show modify form
+        this.showhideNewTripElement('show');
     }
 
     setSelectedtrip(index,chosen: Trip) {
