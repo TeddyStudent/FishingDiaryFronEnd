@@ -18,8 +18,8 @@ export class HomeComponent implements OnInit {
     trips: Trip[] = [];
     catches: Catch[] = [];
     selectedTrip: Trip;
-    selectedTripId: number;
-    selectedTripRow: number;
+    selectedTripId: number | undefined;
+    selectedTripRow: number | undefined;
     selectedCatch: Catch;
     selectedCatchId: number;
     selectedCatchRow: number;
@@ -111,6 +111,11 @@ export class HomeComponent implements OnInit {
     }
 
     deleteTrip(id: number) {
+        //if deleted trip was also the selected row then set selectedTripId and row to undefined
+        if (this.selectedTripId == id) {
+            this.selectedTripId = undefined;
+            this.selectedTripRow = undefined;
+        }
         this.tripService.delete(id)
             .subscribe(
                 () => { 
