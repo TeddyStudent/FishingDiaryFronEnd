@@ -183,6 +183,12 @@ export class HomeComponent implements OnInit {
         if (action == "show") {
             document.getElementById("newTrip").style.display = "block";
         } else {
+            if (this.tripAction == 'modify') {
+                //finally set tripAction and set form texts, clear form and hide it 
+                this.tripAction = 'create';
+                this.setTripFormTxt();
+                this.form.resetForm();
+            }
             document.getElementById("newTrip").style.display = "none";
         }    
     }
